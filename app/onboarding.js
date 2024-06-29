@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { Image, Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from "react-native"
 
-
 export default OnboardingScreen = () => {
     const [ firstName, setFirstName ] = useState( '' )
     const [ email, setEmail ] = useState( '' )
@@ -58,7 +57,7 @@ export default OnboardingScreen = () => {
     return (
         <SafeAreaView style={ styles.container }>
             <View style={ styles.header }>
-                <Image source={ require( '../assets/images/little-lemon-logo.png' ) } />
+                <Image source={ require( '@/assets/images/little-lemon-logo.png' ) } />
             </View>
             <View style={ styles.contents }>
                 <View style={ styles.leadTextContainer }>
