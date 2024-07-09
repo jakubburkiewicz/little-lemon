@@ -1,10 +1,12 @@
-import { useState } from "react"
-import { Image, Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from "react-native"
+import { useState } from 'react'
+import { Image, Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-export default OnboardingScreen = () => {
+const OnboardingScreen = () => {
     const [ firstName, setFirstName ] = useState( '' )
     const [ email, setEmail ] = useState( '' )
-    const [ errors, setErrors ] = useState( {} )
+    const [ firstNameError, setFirstNameError ] = useState( '' )
+    const [ emailError, setEmailError ] = useState( '' )
 
     const handleFirstNameChange = ( text ) => {
         setFirstName( text )
@@ -14,37 +16,40 @@ export default OnboardingScreen = () => {
         setEmail( text )
     }
 
-    const handleNextClick = () => {
+    const handleNextClick = async () => {
         if ( !validateForm() ) {
             return
+        }
+
+        await saveUserData()
+    }
+
+    const saveUserData = async () => {
+        try {
+            await AsyncStorage.setItem( 'firstName', firstName )
+            await AsyncStorage.setItem( 'email', email )
+        } catch ( error ) {
+            console.error( error )
         }
     }
 
     const validateForm = () => {
-        setErrors( {} )
+        setFirstNameError( '' )
+        setEmailError( '' )
 
         // First name can't be empty
-        if ( firstName.trim() === '' ) {
-            setErrors( {
-                ...errors,
-                firstName: 'First name is required',
-            } )
+        if( !firstName ) {
+            setFirstNameError( 'First Name is required' )
         }
 
         // Email can't be empty
-        if ( email.trim() === '' ) {
-            setErrors( {
-                ...errors,
-                email: 'Email is required',
-            } )
-        }
-
-        // Email must be a valid email address
-        if ( !isEmailValid( email ) ) {
-            setErrors( {
-                ...errors,
-                email: 'Email must be a valid email address',
-            } )
+        if( !email ) {
+            setEmailError( 'Email is required' )
+        } else {
+            // Email must be a valid email address
+            if ( !isEmailValid( email ) ) {
+                setEmailError( 'Email is not valid' )
+            }
         }
 
         return true
@@ -57,7 +62,7 @@ export default OnboardingScreen = () => {
     return (
         <SafeAreaView style={ styles.container }>
             <View style={ styles.header }>
-                <Image source={ require( '@/assets/images/little-lemon-logo.png' ) } />
+                <Image source={ require( '../assets/little-lemon-logo.png' ) } />
             </View>
             <View style={ styles.contents }>
                 <View style={ styles.leadTextContainer }>
@@ -78,9 +83,9 @@ export default OnboardingScreen = () => {
                         />
 
                         {
-                            errors.firstName &&
+                            firstNameError &&
                             <Text style={ styles.formFieldError }>
-                                { errors.firstName }
+                                { firstNameError }
                             </Text>
                         }
                     </View>
@@ -98,9 +103,9 @@ export default OnboardingScreen = () => {
                         />
 
                         {
-                            errors.email &&
+                            emailError &&
                             <Text style={ styles.formFieldError }>
-                                { errors.email }
+                                { emailError }
                             </Text>
                         }
                     </View>
@@ -180,3 +185,5 @@ const styles = StyleSheet.create( {
         fontWeight: 'bold',
     },
 } )
+
+export default OnboardingScreen
