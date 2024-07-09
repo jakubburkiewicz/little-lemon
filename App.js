@@ -1,12 +1,16 @@
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native'
 
-import OnboardingScreen from './screens/Onboarding';
+import ScreenSwitcher from './ScreenSwitcher'
+import { OnboardingProvider } from './contexts/OnboardingContext'
 
 const App = () => {
+
     return (
-        <NavigationContainer>
-            <OnboardingScreen />
-        </NavigationContainer>
+        <OnboardingProvider>
+            <NavigationContainer>
+                <ScreenSwitcher />
+            </NavigationContainer>
+        </OnboardingProvider>
     )
 }
 
