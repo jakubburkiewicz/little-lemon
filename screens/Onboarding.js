@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { Image, Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useOnboarding } from '../contexts/OnboardingContext'
 
 const OnboardingScreen = () => {
     const [ firstName, setFirstName ] = useState( '' )
     const [ email, setEmail ] = useState( '' )
     const [ firstNameError, setFirstNameError ] = useState( '' )
     const [ emailError, setEmailError ] = useState( '' )
+
+    const { signIn } = useOnboarding()
 
     const handleFirstNameChange = ( text ) => {
         setFirstName( text )
@@ -21,16 +23,10 @@ const OnboardingScreen = () => {
             return
         }
 
-        await saveUserData()
-    }
-
-    const saveUserData = async () => {
-        try {
-            await AsyncStorage.setItem( 'firstName', firstName )
-            await AsyncStorage.setItem( 'email', email )
-        } catch ( error ) {
-            console.error( error )
-        }
+        await signIn( {
+            firstName,
+            email,
+        } )
     }
 
     const validateForm = () => {
