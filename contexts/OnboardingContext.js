@@ -104,7 +104,7 @@ const OnboardingProvider = ( { children } ) => {
     } ), [ state.isLoading, state.isOnboardingCompleted, state.user ] )
 
     return (
-        <OnboardingContext.Provider value={ { context } }>
+        <OnboardingContext.Provider value={ context }>
             { children }
         </OnboardingContext.Provider>
     )
