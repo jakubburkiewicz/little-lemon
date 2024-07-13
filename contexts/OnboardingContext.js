@@ -64,6 +64,9 @@ const OnboardingProvider = ( { children } ) => {
     }, [] )
 
     const context = useMemo( () => ( {
+        isLoading: state.isLoading,
+        isOnboardingCompleted: state.isOnboardingCompleted,
+        user: state.user,
         signIn: async ( user ) => {
             try {
                 await AsyncStorage.setItem( 'user', JSON.stringify( user ) )
@@ -98,10 +101,10 @@ const OnboardingProvider = ( { children } ) => {
                 console.error( error )
             }
         }
-    } ), [] )
+    } ), [ state.isLoading, state.isOnboardingCompleted, state.user ] )
 
     return (
-        <OnboardingContext.Provider value={ { state, ...context } }>
+        <OnboardingContext.Provider value={ { context } }>
             { children }
         </OnboardingContext.Provider>
     )

@@ -9,16 +9,16 @@ import SplashScreen from './screens/Splash'
 const Stack = createNativeStackNavigator()
 
 const ScreenSwitcher = () => {
-    const { state } = useOnboarding()
+    const { isLoading, isOnboardingCompleted } = useOnboarding()
 
-    if( state.isLoading ) {
+    if( isLoading ) {
         <SplashScreen />
     }
 
     return (
         <Stack.Navigator>
             {
-                state.isOnboardingCompleted
+                isOnboardingCompleted
                 ? (
                     <Stack.Screen name="Profile" component={ ProfileScreen } />
                 ) : (
