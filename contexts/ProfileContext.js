@@ -6,7 +6,13 @@ const ProfileContext = createContext()
 const initialState = {
     isLoading: true,
     isOnboardingCompleted: false,
-    user: null
+    user: null,
+    emailNotifications: {
+        orderStatuses: false,
+        passwordChanges: false,
+        specialOffers: false,
+        newsletter: false
+    }
 }
 
 const reducer = ( state, action ) => {
@@ -26,6 +32,11 @@ const reducer = ( state, action ) => {
                 ...state,
                 user: action.user
             }
+        case 'SET_EMAIL_NOTIFICATIONS':
+            return {
+                ...state,
+                emailNotifications: action.emailNotifications
+            }
         default:
             return state
     }
@@ -38,6 +49,7 @@ const ProfileProvider = ( { children } ) => {
         const bootstrapAsync = async () => {
             try {
                 const user = await AsyncStorage.getItem( 'user' )
+                const emailNotifications = await AsyncStorage.getItem( 'emailNotifications' )
 
                 if ( user ) {
                     dispatch( {
@@ -48,6 +60,13 @@ const ProfileProvider = ( { children } ) => {
                     dispatch( {
                         type: 'SET_ONBOARDING_COMPLETED',
                         isOnboardingCompleted: true
+                    } )
+                }
+
+                if ( emailNotifications ) {
+                    dispatch( {
+                        type: 'SET_EMAIL_NOTIFICATIONS',
+                        emailNotifications: JSON.parse( emailNotifications )
                     } )
                 }
             } catch ( error ) {
@@ -67,6 +86,7 @@ const ProfileProvider = ( { children } ) => {
         isLoading: state.isLoading,
         isOnboardingCompleted: state.isOnboardingCompleted,
         user: state.user,
+        emailNotifications: state.emailNotifications,
         doOnboarding: async ( user ) => {
             try {
                 await AsyncStorage.setItem( 'user', JSON.stringify( user ) )
@@ -100,8 +120,32 @@ const ProfileProvider = ( { children } ) => {
             } catch ( error ) {
                 console.error( error )
             }
+        },
+        updateUserData: async ( user ) => {
+            try {
+                await AsyncStorage.setItem( 'user', JSON.stringify( user ) )
+
+                dispatch( {
+                    type: 'SET_USER',
+                    user
+                } )
+            } catch ( error ) {
+                console.error( error )
+            }
+        },
+        updateEmailNotifications: async ( emailNotifications ) => {
+            try {
+                await AsyncStorage.setItem( 'emailNotifications', JSON.stringify( emailNotifications ) )
+
+                dispatch( {
+                    type: 'SET_EMAIL_NOTIFICATIONS',
+                    emailNotifications
+                } )
+            } catch ( error ) {
+                console.error( error )
+            }
         }
-    } ), [ state.isLoading, state.isOnboardingCompleted, state.user ] )
+    } ), [ state.isLoading, state.isOnboardingCompleted, state.user, state.emailNotifications ] )
 
     return (
         <ProfileContext.Provider value={ context }>
