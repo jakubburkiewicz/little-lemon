@@ -67,7 +67,7 @@ const ProfileProvider = ( { children } ) => {
         isLoading: state.isLoading,
         isOnboardingCompleted: state.isOnboardingCompleted,
         user: state.user,
-        signIn: async ( user ) => {
+        doOnboarding: async ( user ) => {
             try {
                 await AsyncStorage.setItem( 'user', JSON.stringify( user ) )
 
@@ -84,7 +84,7 @@ const ProfileProvider = ( { children } ) => {
                 console.error( error )
             }
         },
-        signOut: async () => {
+        clearOnboarding: async () => {
             try {
                 await AsyncStorage.removeItem( 'user' )
 

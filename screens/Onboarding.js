@@ -8,7 +8,7 @@ const OnboardingScreen = () => {
     const [ firstNameError, setFirstNameError ] = useState( '' )
     const [ emailError, setEmailError ] = useState( '' )
 
-    const { signIn } = useProfile()
+    const { doOnboarding } = useProfile()
 
     const handleFirstNameChange = ( text ) => {
         setFirstName( text )
@@ -23,7 +23,7 @@ const OnboardingScreen = () => {
             return
         }
 
-        await signIn( {
+        await doOnboarding( {
             firstName,
             email,
         } )
