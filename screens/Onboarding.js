@@ -30,25 +30,33 @@ const OnboardingScreen = () => {
     }
 
     const validateForm = () => {
+        let valid = true
+
         setFirstNameError( '' )
         setEmailError( '' )
 
         // First name can't be empty
         if( !firstName ) {
             setFirstNameError( 'First Name is required' )
+
+            valid = false
         }
 
         // Email can't be empty
         if( !email ) {
             setEmailError( 'Email is required' )
+
+            valid = false
         } else {
             // Email must be a valid email address
             if ( !isEmailValid( email ) ) {
                 setEmailError( 'Email is not valid' )
+
+                valid = false
             }
         }
 
-        return true
+        return valid
     }
 
     const isEmailValid = ( email ) => {
