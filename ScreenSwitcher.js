@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
-import { useOnboarding } from './contexts/OnboardingContext'
+import { useProfile } from './contexts/ProfileContext'
 
 import OnboardingScreen from './screens/Onboarding'
 import ProfileScreen from './screens/Profile'
@@ -9,7 +9,7 @@ import SplashScreen from './screens/Splash'
 const Stack = createNativeStackNavigator()
 
 const ScreenSwitcher = () => {
-    const { isLoading, isOnboardingCompleted } = useOnboarding()
+    const { isLoading, isOnboardingCompleted } = useProfile()
 
     if( isLoading ) {
         <SplashScreen />

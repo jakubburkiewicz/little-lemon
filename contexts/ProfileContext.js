@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { createContext, useContext, useEffect, useMemo, useReducer } from 'react'
 
-const OnboardingContext = createContext()
+const ProfileContext = createContext()
 
 const initialState = {
     isLoading: true,
@@ -31,7 +31,7 @@ const reducer = ( state, action ) => {
     }
 }
 
-const OnboardingProvider = ( { children } ) => {
+const ProfileProvider = ( { children } ) => {
     const [ state, dispatch ] = useReducer( reducer, initialState )
 
     useEffect( () => {
@@ -104,20 +104,20 @@ const OnboardingProvider = ( { children } ) => {
     } ), [ state.isLoading, state.isOnboardingCompleted, state.user ] )
 
     return (
-        <OnboardingContext.Provider value={ context }>
+        <ProfileContext.Provider value={ context }>
             { children }
-        </OnboardingContext.Provider>
+        </ProfileContext.Provider>
     )
 }
 
-const useOnboarding = () => {
-    const context = useContext( OnboardingContext )
+const useProfile = () => {
+    const context = useContext( ProfileContext )
 
     if ( context === undefined ) {
-        throw new Error( 'useOnboarding must be used within a OnboardingProvider' )
+        throw new Error( 'useProfile must be used within a ProfileProvider' )
     }
 
     return context
 }
 
-export { OnboardingProvider, useOnboarding }
+export { ProfileProvider, useProfile }

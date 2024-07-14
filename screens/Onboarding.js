@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Image, Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native'
-import { useOnboarding } from '../contexts/OnboardingContext'
+import { useProfile } from '../contexts/ProfileContext'
 
 const OnboardingScreen = () => {
     const [ firstName, setFirstName ] = useState( '' )
@@ -8,7 +8,7 @@ const OnboardingScreen = () => {
     const [ firstNameError, setFirstNameError ] = useState( '' )
     const [ emailError, setEmailError ] = useState( '' )
 
-    const { signIn } = useOnboarding()
+    const { signIn } = useProfile()
 
     const handleFirstNameChange = ( text ) => {
         setFirstName( text )
