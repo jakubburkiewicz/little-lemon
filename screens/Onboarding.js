@@ -62,7 +62,7 @@ const OnboardingScreen = () => {
             </View>
             <View style={ styles.contents }>
                 <View style={ styles.leadTextContainer }>
-                    <Text style={ styles.leadText }>Let up get to know you</Text>
+                    <Text style={ styles.leadText }>Let us get to know you</Text>
                 </View>
 
                 <View style={ styles.formContainer }>
