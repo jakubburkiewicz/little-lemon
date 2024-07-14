@@ -16,7 +16,11 @@ const ScreenSwitcher = () => {
     }
 
     return (
-        <Stack.Navigator>
+        <Stack.Navigator
+            screenOptions={ {
+                headerShown: false
+            } }
+        >
             {
                 isOnboardingCompleted
                 ? (
