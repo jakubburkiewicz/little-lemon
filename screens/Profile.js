@@ -8,7 +8,7 @@ import { useProfile } from '../contexts/ProfileContext'
 import Avatar from '../components/Avatar'
 import { MaskedTextInput } from 'react-native-mask-text'
 
-const ProfileScreen = () => {
+const ProfileScreen = ( { navigation } ) => {
     const [ avatar, setAvatar ] = useState( '' )
     const [ firstName, setFirstName ] = useState( '' )
     const [ lastName, setLastName ] = useState( '' )
@@ -78,7 +78,7 @@ const ProfileScreen = () => {
     }
 
     const handleBackClick = () => {
-        // Navigate back
+        navigation.goBack()
     }
 
     const handlePickAvatarClick = async () => {
