@@ -5,6 +5,7 @@ import { useProfile } from './contexts/ProfileContext'
 import OnboardingScreen from './screens/Onboarding'
 import ProfileScreen from './screens/Profile'
 import SplashScreen from './screens/Splash'
+import HomeScreen from './screens/Home'
 
 const Stack = createNativeStackNavigator()
 
@@ -24,7 +25,10 @@ const ScreenSwitcher = () => {
             {
                 isOnboardingCompleted
                 ? (
-                    <Stack.Screen name="Profile" component={ ProfileScreen } />
+                    <>
+                        <Stack.Screen name="Home" component={ HomeScreen } />
+                        <Stack.Screen name="Profile" component={ ProfileScreen } />
+                    </>
                 ) : (
                     <Stack.Screen name="Onboarding" component={ OnboardingScreen } />
                 )
