@@ -19,19 +19,6 @@ const Categories = ({
             ) }
             horizontal
         />
-        // <View style={ styles.categories }>
-        //     {
-        //         categories.map( category => (
-        //             <TouchableOpacity
-        //                 key={ category }
-        //                 onPress={ () => toggleCategory( category ) }
-        //                 style={ selectedCategories.includes( category ) ? styles.categoryOn : styles.categoryOff }
-        //             >
-        //                 <Text>{ category }</Text>
-        //             </TouchableOpacity>
-        //         ) )
-        //     }
-        // </View>
     )
 }
 
